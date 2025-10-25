@@ -76,40 +76,7 @@
     </head>
     <body>
         <!-- ✅ Modern Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">MyWebsite</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blogs</a>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">AI</a></li>
-                    <li><a class="dropdown-item" href="#">Machine Learning</a></li>
-                    <li><a class="dropdown-item" href="#">Books</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">Shopping</a>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="product_book.html">Books</a></li>
-                    <li><a class="dropdown-item" href="#">Clothes</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                </ul>
-                <div class="d-flex">
-                <a href="register.html" class="btn btn-outline-light btn-sm me-2">Register</a>
-                <a href="login.html" class="btn btn-light btn-sm">Login</a>
-                </div>
-            </div>
-            </div>
-        </nav>
+        <div id="navbar-placeholder"></div>
         <div class="container">
         <h1>A Daydreamer</h1>
         <p>&quot;Daydreamer&quot; is probably the word that best describes me. If you&apos;ve ever watched school-life anime, you&apos;ve likely seen the cool, aloof main character sitting in the corner of the classroom, gazing out the window as his thoughts drift away with the clouds. That was me back in school&ndash;though without the &quot;cool and handsome&quot; part :>.</p>
@@ -126,17 +93,30 @@
         </div>
 
         <script>
-            fetch('api/check_session.php')
-            .then(r => r.json())
-            .then(d => {
-                if (d.loggedIn) {
-                document.getElementById('login-link').innerHTML = `Welcome, ${d.username}`;
-                document.getElementById('login-link').href = "profile.html"; // optional redirect link
-                }
-            })
-            .catch(err => console.error('Session check failed:', err));
-        </script>
+            fetch("navbar.html")
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("navbar-placeholder").innerHTML = html;
 
+                // Run session checker after navbar loads
+                const script = document.createElement("script");
+                script.src = "js/sessionCheck.js";
+                script.onload = () => updateNavbar('index.html'); // call after script is ready
+                document.body.appendChild(script);
+
+                // Highlight active link
+                const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+                const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+
+                navLinks.forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (href && href === currentPage) link.classList.add("active");
+                    else link.classList.remove("active");
+                });
+            })
+            .catch(err => console.error("Navbar load failed:", err));
+            
+        </script>
     </body>
 
     <!-- Footer -->

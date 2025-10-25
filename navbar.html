@@ -1,0 +1,46 @@
+<style>
+.navbar .nav-link.active,
+.dropdown-item.active {
+  color: #fff !important;
+  background-color: #0d6efd !important;
+  font-weight: bold;
+  border-radius: 4px;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">MyWebsite</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blogs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">AI</a></li>
+            <li><a class="dropdown-item" href="#">Machine Learning</a></li>
+            <li><a class="dropdown-item" href="#">Books</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shopping</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="product_book.html">Books</a></li>
+            <li><a class="dropdown-item" href="#">Clothes</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+      </ul>
+
+      <div class="d-flex">
+        <a id="register-link" href="register.html" class="btn btn-outline-light btn-sm me-2">Register</a>
+        <a id="login-link" href="login.html" class="btn btn-light btn-sm">Login</a>
+        <a id="logout-link" href="#" class="btn btn-danger btn-sm d-none">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>

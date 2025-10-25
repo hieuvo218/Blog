@@ -62,44 +62,12 @@
     </head>
     <body class="p-4">
         <!-- ✅ Modern Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">MyWebsite</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blogs</a>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">AI</a></li>
-                    <li><a class="dropdown-item" href="#">Machine Learning</a></li>
-                    <li><a class="dropdown-item" href="#">Books</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">Shopping</a>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="product_book.html">Books</a></li>
-                    <li><a class="dropdown-item" href="#">Clothes</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                </ul>
-                <div class="d-flex">
-                <a href="register.html" class="btn btn-outline-light btn-sm me-2">Register</a>
-                <a href="login.html" class="btn btn-light btn-sm">Login</a>
-                </div>
-            </div>
-            </div>
-        </nav>
+        <div id="navbar-placeholder"></div>
 
         <div class="container mt-5" style="max-width:400px;">
             <h2 class="mb-3 text-center">Register</h2>
             <form id="registerForm">
+            <input type="text" class="form-control mb-2" name="fullname" placeholder="Fullname" required>
             <input type="text" class="form-control mb-2" name="username" placeholder="Username" required>
             <input type="email" class="form-control mb-2" name="email" placeholder="Email" required>
             <input type="password" class="form-control mb-2" name="password" placeholder="Password" required>
@@ -130,7 +98,10 @@
             const res = await fetch('api/register.php', { method: 'POST', body: formData });
             const data = await res.json();
             document.getElementById('registerMsg').textContent = data.message;
-            if (data.success) e.target.reset();
+            if (data.success) {
+                alert("Registration successful! Redirecting to login...");
+                window.location.href = "login.html";
+            }
         });
         </script>
     </body>

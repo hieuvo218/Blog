@@ -7,6 +7,7 @@
 
   <!-- Bootstrap 5.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
@@ -186,46 +187,21 @@
     .go-btn:hover {
         background: #f2f2f2;
     }
+
+    #searchDropdown {
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-top: none;
+      background: #fff;
+    }
   </style>
 </head>
 
 <body>
 
   <!-- ✅ Modern Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">MyWebsite</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blogs</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">AI</a></li>
-              <li><a class="dropdown-item" href="#">Machine Learning</a></li>
-              <li><a class="dropdown-item" href="#">Books</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">Shopping</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="product_book.html">Books</a></li>
-              <li><a class="dropdown-item" href="#">Clothes</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        </ul>
-        <div class="d-flex">
-          <a href="register.html" class="btn btn-outline-light btn-sm me-2">Register</a>
-          <a href="login.html" class="btn btn-light btn-sm">Login</a>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <div id="navbar-placeholder"></div>
 
   <!-- Breadcrumb -->
   <div class="container mt-3">
@@ -261,12 +237,14 @@
 
       <!-- Books -->
       <section class="col-md-9">
-        <div class="d-flex justify-content-end mb-3">
-          <form class="d-flex" action="#" method="get">
-            <input type="text" name="search" class="form-control me-2" placeholder="Search books...">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form>
+        <div class="d-flex justify-content-end mb-3 position-relative">
+          <input type="text" id="searchInput" class="form-control me-2" placeholder="Search books...">
+          <button class="btn btn-outline-primary" id="searchBtn">
+            <i class="bi bi-search"></i>
+          </button>
+          <div id="searchDropdown" class="list-group position-absolute w-50" style="top:100%; z-index:1000; display:none;"></div>
         </div>
+
 
         <div class="d-flex justify-content-end align-items-center mb-3">
             <label for="sortSelect" class="me-2 fw-bold">Sort by:</label>
@@ -307,6 +285,30 @@
   </footer>
 
   <script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-placeholder").innerHTML = html;
+
+            // Run session checker after navbar loads
+            const script = document.createElement("script");
+            script.src = "js/sessionCheck.js";
+            script.onload = () => updateNavbar('product_book.html');
+            document.body.appendChild(script);
+
+            // Highlight active link
+            const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+            const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+
+            console.log(navLinks);
+            navLinks.forEach(link => {
+                const href = link.getAttribute("href");
+                if (href && href === currentPage) link.classList.add("active");
+                else link.classList.remove("active");
+            });
+        })
+        .catch(err => console.error("Navbar load failed:", err));
+
     // === Elements ===
     const minInput = document.getElementById('min');
     const maxInput = document.getElementById('max');
@@ -315,7 +317,6 @@
     const maxLabel = document.getElementById('maxPrice');
     const goBtn = document.getElementById('goBtn');
     const bookList = document.querySelector('.book-list');
-    const searchInput = document.querySelector('input[name="search"]');
     const searchForm = document.querySelector('form[action="#"]');
     const pagination = document.getElementById('pagination');
     const sortSelect = document.getElementById('sortSelect');
@@ -327,9 +328,8 @@
     function fetchBooks() {
         const min = Number(document.getElementById('min').value);
         const max = Number(document.getElementById('max').value);
-        const keyword = document.querySelector('input[name="search"]').value.trim();
 
-        fetch(`api/books.php?min=${min}&max=${max}&search=${encodeURIComponent(keyword)}`)
+        fetch(`api/books.php?min=${min}&max=${max}`)
             .then(res => res.json())
             .then(data => {
             books = data;          // ← store global data
@@ -425,7 +425,7 @@
                     <div class="card-body text-center p-2">
                     <h6 class="card-title mb-1" style="font-size:14px;">${book.title}</h6>
                     <p class="text-muted mb-2" style="font-size:13px;">${fmt(book.price)} VND</p>
-                    <a href="book_detail.html?title=${encodeURIComponent(book.title)}" class="btn btn-sm btn-primary">Chi tiết</a>
+                    <a href="book_detail.html?id=${book.id}" class="btn btn-sm btn-primary">Chi tiết</a>
                     </div>
                 </div>
                 </div>`;
@@ -502,11 +502,6 @@
     });
     }
 
-    // Optional: live search (real-time typing)
-    searchInput.addEventListener('input', () => {
-    renderBooks();
-    });
-
     /* === Event listener for sort select === */
     sortSelect.addEventListener('change', () => {
         currentPage = 1;
@@ -517,6 +512,73 @@
     updateSliderUI();
     fetchBooks(); // ← get from API, not from hardcoded array
 
+    const searchInputLive = document.getElementById('searchInput');
+    const dropdown = document.getElementById('searchDropdown');
+
+    searchInputLive.addEventListener('input', async () => {
+      const query = searchInputLive.value.trim();
+      if (query.length < 2) {
+        dropdown.style.display = 'none';
+        return;
+      }
+
+      try {
+        const res = await fetch(`api/search_books.php?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (data.length === 0) {
+          dropdown.innerHTML = `<div class="list-group-item text-muted">No results found</div>`;
+          dropdown.style.display = 'block';
+          return;
+        }
+
+        dropdown.innerHTML = data.map(item => `
+          <a href="book_detail.html?id=${book.id}" 
+            class="list-group-item list-group-item-action">
+            ${item.title}
+          </a>
+        `).join('');
+        dropdown.style.display = 'block';
+      } catch (err) {
+        console.error('Search error:', err);
+      }
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', e => {
+      if (!dropdown.contains(e.target) && e.target !== searchInputLive) {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', async () => {
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        console.log("Searching for:", query);
+        // TODO: Call your AJAX search API here
+        try {
+          const res = await fetch(`api/search_books.php?q=${encodeURIComponent(query)}`);
+          const data = await res.json();
+
+          if (data.length === 0) {
+            dropdown.innerHTML = `<div class="list-group-item text-muted">No results found</div>`;
+            dropdown.style.display = 'block';
+            return;
+          }
+
+          dropdown.innerHTML = data.map(item => `
+            <a href="book_detail.html?id=${book.id}" 
+              class="list-group-item list-group-item-action">
+              ${item.title}
+            </a>
+          `).join('');
+          dropdown.style.display = 'block';
+        } catch (err) {
+          console.error('Search error:', err);
+        }
+      }
+    });
+    
   </script>
 </body>
 </html>
