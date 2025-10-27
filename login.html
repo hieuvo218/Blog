@@ -18,46 +18,6 @@
             min-height: 100vh;
             margin: 0;
         }
-
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 16px 0;
-            margin-top: auto;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 20px;
-        }
-
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-logo {
-            width: 36px;
-            height: 36px;
-        }
-
-        .footer-right img {
-            width: 28px;
-            height: 28px;
-            margin: 5px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .footer-right img:hover {
-            transform: scale(1.1);
-        }
         nav.navbar {
             position: relative;
             z-index: 10;
@@ -65,34 +25,48 @@
 
     </style>
 </head>
-<body class="p-4">
+<body class="d-flex flex-column min-vh-100">
+  <!-- <main class="flex-fill d-flex justify-content-center align-items-center"></main> -->
     <!-- ✅ Modern Navbar -->
     <div id="navbar-placeholder"></div>
 
-  <div class="container mt-5" style="max-width:400px;">
-    <h2 class="mb-3 text-center">Login</h2>
-    <form id="loginForm">
-      <input type="text" class="form-control mb-2" name="username" placeholder="Username or Email" required>
-      <input type="password" class="form-control mb-2" name="password" placeholder="Password" required>
-      <button class="btn btn-success w-100">Login</button>
-    </form>
-    <div id="loginMsg" class="mt-3 text-center text-muted"></div>
-  </div>
+  <!-- ✅ Main content fills space -->
+  <main class="flex-fill d-flex justify-content-center align-items-center">
+    <div class="container" style="max-width:400px;">
+      <h2 class="mb-3 text-center">Login</h2>
+      <form id="loginForm">
+        <input type="text" class="form-control mb-2" name="username" placeholder="Username or Email" required>
+        <input type="password" class="form-control mb-2" name="password" placeholder="Password" required>
+        <button class="btn btn-success w-100">Login</button>
+      </form>
+
+      <div class="text-center mt-4">
+        <p>or continue with</p>
+        <button id="googleLogin" class="btn btn-outline-danger w-100 mb-2">
+          <img src="images/icons/google_icon.png" style="width:20px;margin-right:8px;">
+          Login with Google
+        </button>
+        <button id="facebookLogin" class="btn btn-outline-primary w-100">
+          <img src="images/icons/fb_icon.png" style="width:46px;margin-right:0px;">
+          Login with Facebook
+        </button>
+      </div>
+
+      <div id="loginMsg" class="mt-3 text-center text-muted"></div>
+    </div>
+  </main>
 
   <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-            <div class="footer-left">
-                <img src="images/logo.png" alt="Logo" class="footer-logo">
-                <span class="fw-bold">MyWebsite</span>
-            </div>
-            <div class="footer-right">
-                <img src="images/icons/fb_icon.png" alt="Facebook">
-                <img src="images/icons/linkedin_icon.png" alt="LinkedIn">
-                <img src="images/icons/ins_icon.png" alt="Instagram">
-            </div>
-            </div>
-        </footer>
+    <div id="footer-placeholder"></div>
+    <script>
+  // Load reusable footer
+  fetch("footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
 
   <script>
     fetch("navbar.html")
@@ -130,6 +104,69 @@
       window.location.href = 'index.html';
     }
   });
+    // ===== GOOGLE LOGIN =====
+    window.onload = function() {
+    google.accounts.id.initialize({
+        client_id: "1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com",
+        callback: handleGoogleLogin
+    });
+    google.accounts.id.renderButton(
+        document.getElementById("googleLogin"),
+        { theme: "outline", size: "large", width: "100%" }
+    );
+    };
+
+    function handleGoogleLogin(response) {
+    fetch("api/google_login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credential: response.credential })
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.success) {
+        window.location.href = "index.html";
+        } else {
+        alert("Google login failed: " + d.message);
+        }
+    });
+    }
+
+    // ===== FACEBOOK LOGIN =====
+    window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '1382024816770394',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v19.0'
+    });
+    };
+
+    document.getElementById('facebookLogin').addEventListener('click', () => {
+    FB.login(response => {
+        if (response.authResponse) {
+        FB.api('/me', { fields: 'name,email' }, userInfo => {
+            fetch("api/facebook_login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userInfo)
+            })
+            .then(r => r.json())
+            .then(d => {
+            if (d.success) window.location.href = "index.html";
+            else alert("Facebook login failed: " + d.message);
+            });
+        });
+        }
+    }, { scope: 'email' });
+    });
   </script>
+
+    <!-- Google OAuth SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" 
+    src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
 </html>
