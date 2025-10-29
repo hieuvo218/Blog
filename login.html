@@ -76,7 +76,7 @@
 
             // Run session checker after navbar loads
             const script = document.createElement("script");
-            script.src = "sessionCheck.js";
+            script.src = "js/sessionCheck.js";
             document.body.appendChild(script);
 
             // Highlight active link
@@ -106,14 +106,18 @@
   });
     // ===== GOOGLE LOGIN =====
     window.onload = function() {
-    google.accounts.id.initialize({
-        client_id: "1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com",
-        callback: handleGoogleLogin
-    });
-    google.accounts.id.renderButton(
-        document.getElementById("googleLogin"),
-        { theme: "outline", size: "large", width: "100%" }
-    );
+      google.accounts.id.disableAutoSelect();
+      google.accounts.id.cancel();
+      google.accounts.id.initialize({
+          client_id: "1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com",
+          callback: handleGoogleLogin,
+          auto_select: false, 
+          cancel_on_tap_outside: true
+      });
+      google.accounts.id.renderButton(
+          document.getElementById("googleLogin"),
+          { theme: "outline", size: "large", width: "100%" }
+      );
     };
 
     function handleGoogleLogin(response) {

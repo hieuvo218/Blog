@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 session_start();
 header("Content-Type: application/json");
 require 'db_connect.php';
@@ -13,6 +13,7 @@ if (!$token) {
 }
 
 $client = new Google_Client(['client_id' => '1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com']);
+$client->setClientSecret('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');
 $payload = $client->verifyIdToken($token);
 
 if ($payload) {
