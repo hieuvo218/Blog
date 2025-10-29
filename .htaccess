@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Rewrite URLs like /books/harry-potter → book_detail.php?slug=harry-potter
+RewriteRule ^books/([a-zA-Z0-9-]+)/?$ book_detail.php?slug=$1 [L]
+
+# Rewrite for categories
+RewriteRule ^category/([a-zA-Z0-9-]+)/?$ product_book.php?category=$1 [L]
