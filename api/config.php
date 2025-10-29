@@ -23,7 +23,7 @@ $conn->set_charset("utf8mb4");
 // ========================
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USER', 'hvotranminh2003@gmail.com');
-define('SMTP_PASS', 'YOUR GMAIL APP PASSWORD'); // ⚠️ Gmail App Password
+define('SMTP_PASS', 'REDACTED_SMTP_PASS'); // ⚠️ Gmail App Password
 define('SMTP_PORT', 587);
 define('SMTP_SECURE', 'tls');
 
