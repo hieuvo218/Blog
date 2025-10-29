@@ -25,15 +25,17 @@ VALUES
 ('Bố già', 'images/books/bo_gia.png', 180000);
 
 
-CREATE TABLE Users (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    FullName VARCHAR(100) NOT NULL,
-    UserName VARCHAR(50) UNIQUE NOT NULL,
-    PasswordHash VARCHAR(255) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL,
-    Phone VARCHAR(20),
-    DateOfBirth DATE,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE users (
+  userid INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255),
+  provider ENUM('local', 'google', 'facebook') DEFAULT 'local',
+  provider_id VARCHAR(255) DEFAULT NULL,
+  verified TINYINT(1) DEFAULT 0,
+  verification_token VARCHAR(255),
+  reset_token VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Favorites (

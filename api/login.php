@@ -39,7 +39,7 @@ try {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT userid, username, email, passwordhash FROM users WHERE username=? OR email=?");
+    $stmt = $conn->prepare("SELECT userid, username, email, password_hash FROM users WHERE username=? OR email=?");
     if (! $stmt) throw new Exception("Prepare failed: " . $conn->error);
 
     $stmt->bind_param("ss", $username, $username);
@@ -48,7 +48,7 @@ try {
 
     if ($user = $result->fetch_assoc()) {
         // If caller requested the stored hash for debugging, capture it now
-        $stored_hash = $user['passwordhash'] ?? null;
+        $stored_hash = $user['password_hash'] ?? null;
 
         // Diagnostics to help debug mismatches (only included when show_hash=1)
         $hash_prefix = is_string($stored_hash) && strlen($stored_hash) >= 4 ? substr($stored_hash,0,4) : null;
@@ -90,7 +90,7 @@ try {
             if ($password_verify_ok && $migrated && is_string($stored_hash)) {
                 $new_hash = password_hash($password, PASSWORD_DEFAULT);
                 if ($new_hash !== false) {
-                    $up = $conn->prepare("UPDATE users SET passwordhash=? WHERE userid=?");
+                    $up = $conn->prepare("UPDATE users SET password_hash=? WHERE userid=?");
                     if ($up) {
                         $up->bind_param("si", $new_hash, $user['userid']);
                         $up->execute();
@@ -116,7 +116,7 @@ try {
                 "email" => $user['email'],
             ];
             if ($show_hash) {
-                $respUser['passwordhash'] = $stored_hash;
+                $respUser['password_hash'] = $stored_hash;
                 $respUser['hash_prefix'] = $hash_prefix;
                 $respUser['hash_length'] = $hash_len;
                 $respUser['password_verify'] = true;

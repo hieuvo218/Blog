@@ -4,54 +4,59 @@
   <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <meta name="description" content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
-  <meta name="keywords" content="books, online bookstore, buy books Vietnam, book deals">
+  <meta name="description" content="Login to your MyWebsite account or continue with Google or Facebook.">
+  <meta name="keywords" content="login, account, bookstore, user access">
   <meta name="robots" content="index, follow">
 
-  <!-- Open Graph (for Facebook / social sharing) -->
-  <meta property="og:title" content="Buy Books Online | MyWebsite">
-  <meta property="og:description" content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Login | MyWebsite">
+  <meta property="og:description" content="Sign in to access your account and manage your orders.">
   <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
-  <meta property="og:url" content="https://localhost/mywebsite/product_book.html">
+  <meta property="og:url" content="https://localhost/mywebsite/login.html">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Buy Books Online | MyWebsite">
-  <meta name="twitter:description" content="Shop your favorite books online at MyWebsite.">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <style>
-        :root {
-            --primary: #1e5fae;
-            --track-bg: #e6e6e6;
-            --thumb-size: 24px;
-            --track-height: 6px;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-        nav.navbar {
-            position: relative;
-            z-index: 10;
-        }
-
-    </style>
+    :root {
+      --primary: #1e5fae;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+    nav.navbar {
+      position: relative;
+      z-index: 10;
+    }
+    a.forgot-link {
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    a.forgot-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-  <!-- <main class="flex-fill d-flex justify-content-center align-items-center"></main> -->
-    <!-- ✅ Modern Navbar -->
-    <div id="navbar-placeholder"></div>
 
-  <!-- ✅ Main content fills space -->
+  <div id="navbar-placeholder"></div>
+
   <main class="flex-fill d-flex justify-content-center align-items-center">
     <div class="container" style="max-width:400px;">
       <h2 class="mb-3 text-center">Login</h2>
+
       <form id="loginForm">
         <input type="text" class="form-control mb-2" name="username" placeholder="Username or Email" required>
         <input type="password" class="form-control mb-2" name="password" placeholder="Password" required>
+
+        <!-- ✅ Forgot password link -->
+        <div class="text-end mb-3">
+          <a href="forgot_password.html" class="forgot-link">Forgot password?</a>
+        </div>
+
         <button class="btn btn-success w-100">Login</button>
       </form>
 
@@ -72,120 +77,106 @@
   </main>
 
   <!-- Footer -->
-    <div id="footer-placeholder"></div>
-    <script>
-  // Load reusable footer
-  fetch("footer.html")
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById("footer-placeholder").innerHTML = html;
-    })
-    .catch(err => console.error("Footer load failed:", err));
-</script>
+  <div id="footer-placeholder"></div>
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(html => { document.getElementById("footer-placeholder").innerHTML = html; })
+      .catch(err => console.error("Footer load failed:", err));
+  </script>
 
   <script>
     fetch("navbar.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-placeholder").innerHTML = html;
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("navbar-placeholder").innerHTML = html;
 
-            // Run session checker after navbar loads
-            const script = document.createElement("script");
-            script.src = "js/sessionCheck.js";
-            document.body.appendChild(script);
+        const script = document.createElement("script");
+        script.src = "js/sessionCheck.js";
+        document.body.appendChild(script);
 
-            // Highlight active link
-            const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
-            const navLinks = document.querySelectorAll("#navbar-container .nav-link, #navbar-container .dropdown-item");
+        const currentPage = window.location.pathname.split("/").pop();
+        const navLinks = document.querySelectorAll("#navbar-container .nav-link, #navbar-container .dropdown-item");
 
-            navLinks.forEach(link => {
-            const href = link.getAttribute("href");
-            if (href && href === currentPage) {
-                link.classList.add("active");
-            } else {
-                link.classList.remove("active");
-            }
-            });
-        })
-        .catch(err => console.error("Navbar load failed:", err));
-  document.getElementById('loginForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const res = await fetch('api/login.php', { method: 'POST', body: formData });
-    const data = await res.json();
-    document.getElementById('loginMsg').textContent = data.message;
-    if (data.success) {
-      // Redirect to homepage or product page
-      window.location.href = 'index.html';
-    }
-  });
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href");
+          if (href && href === currentPage) link.classList.add("active");
+          else link.classList.remove("active");
+        });
+      })
+      .catch(err => console.error("Navbar load failed:", err));
+
+    // ===== NORMAL LOGIN =====
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch('api/login.php', { method: 'POST', body: formData });
+      const data = await res.json();
+      document.getElementById('loginMsg').textContent = data.message;
+      if (data.success) window.location.href = 'index.html';
+    });
+
     // ===== GOOGLE LOGIN =====
     window.onload = function() {
       google.accounts.id.disableAutoSelect();
       google.accounts.id.cancel();
       google.accounts.id.initialize({
-          client_id: "1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com",
-          callback: handleGoogleLogin,
-          auto_select: false, 
-          cancel_on_tap_outside: true
+        client_id: "1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com",
+        callback: handleGoogleLogin,
+        auto_select: false, 
+        cancel_on_tap_outside: true
       });
       google.accounts.id.renderButton(
-          document.getElementById("googleLogin"),
-          { theme: "outline", size: "large", width: "100%" }
+        document.getElementById("googleLogin"),
+        { theme: "outline", size: "large", width: "100%" }
       );
     };
 
     function handleGoogleLogin(response) {
-    fetch("api/google_login.php", {
+      fetch("api/google_login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ credential: response.credential })
-    })
-    .then(r => r.json())
-    .then(d => {
-        if (d.success) {
-        window.location.href = "index.html";
-        } else {
-        alert("Google login failed: " + d.message);
-        }
-    });
+      })
+      .then(r => r.json())
+      .then(d => {
+        if (d.success) window.location.href = "index.html";
+        else alert("Google login failed: " + d.message);
+      });
     }
 
     // ===== FACEBOOK LOGIN =====
     window.fbAsyncInit = function() {
-    FB.init({
+      FB.init({
         appId      : '1382024816770394',
         cookie     : true,
         xfbml      : true,
         version    : 'v19.0'
-    });
+      });
     };
 
     document.getElementById('facebookLogin').addEventListener('click', () => {
-    FB.login(response => {
+      FB.login(response => {
         if (response.authResponse) {
-        FB.api('/me', { fields: 'name,email' }, userInfo => {
+          FB.api('/me', { fields: 'name,email' }, userInfo => {
             fetch("api/facebook_login.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userInfo)
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(userInfo)
             })
             .then(r => r.json())
             .then(d => {
-            if (d.success) window.location.href = "index.html";
-            else alert("Facebook login failed: " + d.message);
+              if (d.success) window.location.href = "index.html";
+              else alert("Facebook login failed: " + d.message);
             });
-        });
+          });
         }
-    }, { scope: 'email' });
+      }, { scope: 'email' });
     });
   </script>
 
-    <!-- Google OAuth SDK -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-    <!-- Facebook SDK -->
-    <script async defer crossorigin="anonymous" 
-    src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
 </html>
