@@ -29,7 +29,7 @@ if ($payload) {
     $_SESSION['user_id'] = $user['userid'];
     $_SESSION['username'] = $user['username'];
   } else {
-    $stmt = $conn->prepare("INSERT INTO users (username, email) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (username, email, provider) VALUES (?, ?, 'google')");
     $stmt->bind_param("ss", $name, $email);
     $stmt->execute();
     $_SESSION['user_id'] = $conn->insert_id;
