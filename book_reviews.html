@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vietnamese">
+    <style>
+        .review-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: auto;
+        }
+    </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Blog</title>
+        <meta name="description" content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
+        <meta name="keywords" content="books, online bookstore, buy books Vietnam, book deals">
+        <meta name="robots" content="index, follow">
+
+        <!-- Open Graph (for Facebook / social sharing) -->
+        <meta property="og:title" content="Buy Books Online | MyWebsite">
+        <meta property="og:description" content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
+        <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
+        <meta property="og:url" content="https://localhost/mywebsite/product_book.html">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Buy Books Online | MyWebsite">
+        <meta name="twitter:description" content="Shop your favorite books online at MyWebsite.">
+        <!-- Bootstrap 5.3 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <link ref="stylesheet" href="css/style.css">
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- ✅ Modern Navbar -->
+        <div id="navbar-placeholder"></div>
+        <main class="flex-fill d-flex justify-content-center align-items-center">
+            <div class="review-container">
+                <h1>Review of <em>Les Misérables</em> by Victor Hugo</h1>
+
+                <p><strong>Les Misérables</strong> is one of the most powerful and enduring novels ever written. Victor Hugo’s 19th-century masterpiece explores themes of justice, love, redemption, and the struggle of the human spirit against oppression. Set in post-revolutionary France, the story follows <strong>Jean Valjean</strong>, a man imprisoned for stealing bread, as he seeks to rebuild his life and find redemption in a society that refuses to forgive him.</p>
+
+                <h2>Plot and Themes</h2>
+                <p>Hugo weaves together multiple storylines, from the relentless pursuit of Valjean by Inspector <strong>Javert</strong> to the tragic life of <strong>Fantine</strong> and her daughter <strong>Cosette</strong>. Each character embodies a facet of society—its cruelty, compassion, and hope. The novel’s sweeping scope captures the struggles of the poor, the corruption of institutions, and the power of mercy and love to transform even the darkest hearts.</p>
+
+                <blockquote>
+                    “To love another person is to see the face of God.”  
+                    — Victor Hugo, <em>Les Misérables</em>
+                </blockquote>
+
+                <h2>Writing Style</h2>
+                <p>Hugo’s prose is rich and poetic, filled with philosophical reflections on humanity and justice. Though at times lengthy and digressive, his writing gives the novel its grandeur and emotional weight. His ability to combine social criticism with deep empathy makes <em>Les Misérables</em> timeless and universally relevant.</p>
+
+                <h2>Overall Impression</h2>
+                <p><em>Les Misérables</em> is not just a novel—it is an emotional and moral journey. It reminds readers that kindness and forgiveness can redeem even the most broken souls. Despite its historical setting, its message about compassion and social justice remains profoundly modern.</p>
+
+            </div>
+        </main>
+        <script>
+            fetch("navbar.html?nocache=" + new Date().getTime())
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("navbar-placeholder").innerHTML = html;
+
+                // Run session checker after navbar loads
+                const script = document.createElement("script");
+                script.src = "js/sessionCheck.js";
+                script.onload = () => updateNavbar('index.html'); // call after script is ready
+                document.body.appendChild(script);
+
+                // Highlight active link
+                const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+                const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+
+                navLinks.forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (href && href === currentPage) link.classList.add("active");
+                    else link.classList.remove("active");
+                });
+            })
+            .catch(err => console.error("Navbar load failed:", err));
+            
+        </script>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    </body>
+
+     
+     <script>
+  // Load reusable footer
+  fetch("footer.html?nocache=" + new Date().getTime())
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+    
+</html>

@@ -1,0 +1,33 @@
+:root {
+    --primary: #1e5fae;
+    --track-bg: #e6e6e6;
+    --thumb-size: 24px;
+    --track-height: 6px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 32px;
+}
+
+p {
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    margin-bottom: 18px;
+}
+
+/* .container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 30px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+} */
