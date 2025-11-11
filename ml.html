@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vietnamese">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Blog</title>
+        <meta name="description" content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
+        <meta name="keywords" content="books, online bookstore, buy books Vietnam, book deals">
+        <meta name="robots" content="index, follow">
+
+        <!-- Open Graph (for Facebook / social sharing) -->
+        <meta property="og:title" content="Buy Books Online | MyWebsite">
+        <meta property="og:description" content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
+        <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
+        <meta property="og:url" content="https://localhost/mywebsite/product_book.html">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Buy Books Online | MyWebsite">
+        <meta name="twitter:description" content="Shop your favorite books online at MyWebsite.">
+        <!-- Bootstrap 5.3 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- ✅ Modern Navbar -->
+        <div id="navbar-placeholder"></div>
+        <main class="flex-fill d-flex justify-content-center align-items-center">
+            <div class="container">
+                <h1>Introduction to Machine Learning</h1>
+
+                <p><strong>Machine Learning (ML)</strong> is a branch of Artificial Intelligence that enables computers to learn from data and make decisions without being explicitly programmed. It is used in various fields such as healthcare, finance, and entertainment to solve complex problems.</p>
+
+                <h2>How Machine Learning Works</h2>
+                <p>Machine learning algorithms identify patterns in data. Once trained, these models can make predictions or decisions based on new, unseen data. The general process includes:</p>
+                <ul>
+                    <li><strong>Data Collection:</strong> Gathering relevant data from various sources.</li>
+                    <li><strong>Data Preparation:</strong> Cleaning and organizing data for analysis.</li>
+                    <li><strong>Model Training:</strong> Feeding the data into algorithms to learn patterns.</li>
+                    <li><strong>Evaluation:</strong> Testing the model’s accuracy and performance.</li>
+                    <li><strong>Deployment:</strong> Using the model in real-world applications.</li>
+                </ul>
+
+                <h2>Common Types of Machine Learning</h2>
+                <ul>
+                    <li><strong>Supervised Learning:</strong> The model learns from labeled data (e.g., predicting house prices).</li>
+                    <li><strong>Unsupervised Learning:</strong> The model discovers hidden patterns in unlabeled data (e.g., customer segmentation).</li>
+                    <li><strong>Reinforcement Learning:</strong> The model learns by interacting with an environment and receiving feedback (e.g., game-playing AI).</li>
+                </ul>
+
+                <h2>Applications</h2>
+                <p>Machine learning is everywhere around us. Some popular applications include:</p>
+                <ul>
+                    <li>Spam detection in emails</li>
+                    <li>Voice assistants like Siri and Alexa</li>
+                    <li>Medical image analysis</li>
+                    <li>Recommendation systems (Netflix, YouTube)</li>
+                    <li>Autonomous vehicles</li>
+                </ul>
+
+                <p>In short, machine learning is transforming the world by enabling computers to “think” and make decisions, paving the way for smarter technology.</p>
+            </div>
+        </main>
+        <script>
+            fetch("navbar.html?nocache=" + new Date().getTime())
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("navbar-placeholder").innerHTML = html;
+
+                // Run session checker after navbar loads
+                const script = document.createElement("script");
+                script.src = "js/sessionCheck.js";
+                script.onload = () => updateNavbar('index.html'); // call after script is ready
+                document.body.appendChild(script);
+
+                // Highlight active link
+                const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+                const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+
+                navLinks.forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (href && href === currentPage) link.classList.add("active");
+                    else link.classList.remove("active");
+                });
+            })
+            .catch(err => console.error("Navbar load failed:", err));
+            
+        </script>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    </body>
+
+     
+     <script>
+  // Load reusable footer
+  fetch("footer.html?nocache=" + new Date().getTime())
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+    
+</html>
