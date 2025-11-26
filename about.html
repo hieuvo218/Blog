@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | MyWebsite</title>
 
   <!-- ✅ SEO -->
-  <meta name="description" content="Learn more about Vo Tran Minh Hieu, a Computer Science student at Ho Chi Minh City University of Technology (VNU-HCM).">
+  <meta name="description"
+    content="Learn more about Vo Tran Minh Hieu, a Computer Science student at Ho Chi Minh City University of Technology (VNU-HCM).">
   <meta name="keywords" content="Vo Tran Minh Hieu, HCMUT, Computer Science, Vietnam, developer, AI, CSE">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://localhost/mywebsite/about.html">
+  <link rel="icon" type="image/png" href="images/logo.png">
 
   <!-- ✅ Open Graph -->
   <meta property="og:title" content="About Vo Tran Minh Hieu - MyWebsite">
-  <meta property="og:description" content="Vo Tran Minh Hieu, a 22-year-old Computer Science student from HCMUT, passionate about technology and software development.">
+  <meta property="og:description"
+    content="Vo Tran Minh Hieu, a 22-year-old Computer Science student from HCMUT, passionate about technology and software development.">
   <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
   <meta property="og:url" content="https://localhost/mywebsite/about.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Vo Tran Minh Hieu - MyWebsite">
+  <meta name="twitter:description"
+    content="Vo Tran Minh Hieu, a 22-year-old Computer Science student from HCMUT, passionate about technology and software development.">
+  <meta name="twitter:image" content="https://localhost/mywebsite/images/logo.png">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link ref="stylesheet" href="css/style.css">
@@ -24,31 +36,37 @@
       flex: 1;
       padding: 60px 0;
     }
+
     .about-card {
       background: white;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 30px;
       transition: transform 0.2s;
     }
+
     .about-card:hover {
       transform: translateY(-3px);
     }
+
     .about-title {
       font-weight: bold;
       color: #1e5fae;
     }
+
     .social-links a {
       margin: 0 8px;
       color: #1e5fae;
       font-size: 22px;
       text-decoration: none;
     }
+
     .social-links a:hover {
       color: #0d6efd;
     }
   </style>
 </head>
+
 <body class="d-flex flex-column min-vh-100">
 
   <!-- Navbar -->
@@ -62,7 +80,8 @@
 
         <div class="mb-3"><strong>Name:</strong> Vo Tran Minh Hieu</div>
         <div class="mb-3"><strong>Age:</strong> 22</div>
-        <div class="mb-3"><strong>University:</strong> Ho Chi Minh City University of Technology - Vietnam National University</div>
+        <div class="mb-3"><strong>University:</strong> Ho Chi Minh City University of Technology - Vietnam National
+          University</div>
         <div class="mb-3"><strong>Department:</strong> Computer Science and Engineering</div>
 
         <hr>
@@ -73,9 +92,12 @@
 
         <h5 class="mt-4 mb-3">🌐 Social Profiles</h5>
         <div class="social-links">
-          <a href="https://web.facebook.com/hieu.votranminh.218/" target="_blank"><i class="bi bi-facebook"></i> Facebook</a><br>
-          <a href="https://www.instagram.com/hieuvo8107/" target="_blank"><i class="bi bi-instagram"></i> Instagram</a><br>
-          <a href="https://www.linkedin.com/in/hieuvotranminh21/" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a><br>
+          <a href="https://web.facebook.com/hieu.votranminh.218/" target="_blank"><i class="bi bi-facebook"></i>
+            Facebook</a><br>
+          <a href="https://www.instagram.com/hieuvo8107/" target="_blank"><i class="bi bi-instagram"></i>
+            Instagram</a><br>
+          <a href="https://www.linkedin.com/in/hieuvotranminh21/" target="_blank"><i class="bi bi-linkedin"></i>
+            LinkedIn</a><br>
           <a href="https://github.com/hieuvo218" target="_blank"><i class="bi bi-github"></i> GitHub</a>
         </div>
       </div>
@@ -92,27 +114,27 @@
   <script>
     // Load Navbar
     fetch("navbar.html?nocache=" + new Date().getTime())
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-placeholder").innerHTML = html;
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("navbar-placeholder").innerHTML = html;
 
-            // Run session checker after navbar loads
-            const script = document.createElement("script");
-            script.src = "js/sessionCheck.js";
-            script.onload = () => updateNavbar('index.html'); // call after script is ready
-            document.body.appendChild(script);
+        // Run session checker after navbar loads
+        const script = document.createElement("script");
+        script.src = "js/sessionCheck.js";
+        script.onload = () => updateNavbar('index.html'); // call after script is ready
+        document.body.appendChild(script);
 
-            // Highlight active link
-            const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
-            const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+        // Highlight active link
+        const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+        const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
 
-            navLinks.forEach(link => {
-                const href = link.getAttribute("href");
-                if (href && href === currentPage) link.classList.add("active");
-                else link.classList.remove("active");
-            });
-        })
-        .catch(err => console.error("Navbar load failed:", err));
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href");
+          if (href && href === currentPage) link.classList.add("active");
+          else link.classList.remove("active");
+        });
+      })
+      .catch(err => console.error("Navbar load failed:", err));
 
     // Load Footer
     fetch("footer.html?nocache=" + new Date().getTime())
@@ -122,4 +144,5 @@
   </script>
 
 </body>
+
 </html>

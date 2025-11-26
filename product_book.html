@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Books - Shopping</title>
   <!-- SEO Meta -->
   <title>Buy Books Online | MyWebsite</title>
-  <meta name="description" content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
+  <meta name="description"
+    content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
   <meta name="keywords" content="books, online bookstore, buy books Vietnam, book deals">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://localhost/mywebsite/product_book.html">
+  <link rel="icon" type="image/png" href="images/logo.png">
 
   <!-- Open Graph (for Facebook / social sharing) -->
   <meta property="og:title" content="Buy Books Online | MyWebsite">
-  <meta property="og:description" content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
+  <meta property="og:description"
+    content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
   <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
   <meta property="og:url" content="https://localhost/mywebsite/product_book.html">
 
@@ -28,10 +33,10 @@
 
   <style>
     :root {
-        --primary: #1e5fae;
-        --track-bg: #e6e6e6;
-        --thumb-size: 24px;
-        --track-height: 6px;
+      --primary: #1e5fae;
+      --track-bg: #e6e6e6;
+      --thumb-size: 24px;
+      --track-height: 6px;
     }
 
 
@@ -52,116 +57,125 @@
     }
 
     .book-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .book-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     }
 
     .price-filter {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        font-family: Arial, sans-serif;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
     }
 
     .price-filter .label {
-        font-weight: 600;
-        margin-bottom: 6px;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
 
-        .range-row {
-        display: flex;
-        gap: 12px;
-        align-items: center;
+    .range-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
     }
 
     .slider {
-        position: relative;
-        flex: 1;
-        height: 48px;
+      position: relative;
+      flex: 1;
+      height: 48px;
     }
 
     .slider .track {
-        position: absolute;
-        left: 0; right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        height: var(--track-height);
-        background: var(--track-bg);
-        border-radius: 12px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: var(--track-height);
+      background: var(--track-bg);
+      border-radius: 12px;
     }
 
     .slider .range {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        height: var(--track-height);
-        background: var(--primary);
-        border-radius: 12px;
-        left: 0; width: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: var(--track-height);
+      background: var(--primary);
+      border-radius: 12px;
+      left: 0;
+      width: 0;
     }
 
     /* Range inputs (invisible track, visible thumb) */
     .slider input[type="range"] {
-        appearance: none;
-        position: absolute;
-        left: 0; right: 0;
-        top: 0;
-        width: 100%;
-        height: 48px;
-        background: transparent;
-        pointer-events: none;
+      appearance: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 48px;
+      background: transparent;
+      pointer-events: none;
     }
 
     /* WebKit thumb (Chrome, Edge, Safari) */
     .slider input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: var(--thumb-size);
-        height: var(--thumb-size);
-        border-radius: 50%;
-        background: var(--primary);
-        border: 4px solid #fff;
-        box-shadow: 0 0 0 4px var(--primary);
-        cursor: pointer;
-        pointer-events: auto;
+      -webkit-appearance: none;
+      width: var(--thumb-size);
+      height: var(--thumb-size);
+      border-radius: 50%;
+      background: var(--primary);
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 4px var(--primary);
+      cursor: pointer;
+      pointer-events: auto;
     }
 
     /* Firefox thumb */
     .slider input[type="range"]::-moz-range-thumb {
-        width: var(--thumb-size);
-        height: var(--thumb-size);
-        border-radius: 50%;
-        background: var(--primary);
-        border: 4px solid #fff;
-        box-shadow: 0 0 0 4px var(--primary);
-        cursor: pointer;
-        pointer-events: auto;
+      width: var(--thumb-size);
+      height: var(--thumb-size);
+      border-radius: 50%;
+      background: var(--primary);
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 4px var(--primary);
+      cursor: pointer;
+      pointer-events: auto;
     }
 
     .slider input[type="range"]::-webkit-slider-runnable-track,
     .slider input[type="range"]::-moz-range-track {
-        background: transparent;
+      background: transparent;
     }
 
-    .slider input[type="range"].min { z-index: 5; }
-    .slider input[type="range"].max { z-index: 6; }
+    .slider input[type="range"].min {
+      z-index: 5;
+    }
+
+    .slider input[type="range"].max {
+      z-index: 6;
+    }
 
     .go-btn {
-        border: 1px solid #888;
-        background: #fff;
-        padding: 6px 14px;
-        border-radius: 20px;
-        cursor: pointer;
-        min-width: 56px;
-        transition: background 0.2s;
+      border: 1px solid #888;
+      background: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      min-width: 56px;
+      transition: background 0.2s;
     }
+
     .go-btn:hover {
-        background: #f2f2f2;
+      background: #f2f2f2;
     }
 
     #searchDropdown {
@@ -201,7 +215,7 @@
   <!-- Breadcrumb -->
   <div class="container mt-3">
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb", id="breadcrumb">
+      <ol class="breadcrumb" , id="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item">Shopping</li>
         <li class="breadcrumb-item active" id="breadcrumbCurrent">Books</li>
@@ -215,18 +229,18 @@
       <!-- Sidebar -->
       <aside class="col-md-3 mb-4">
         <div class="price-filter">
-            <div class="label">Price</div>
-            <p><span id="minPrice"><b>₫0</b></span> – <span id="maxPrice"><b>₫500,000+</b></span></p>
+          <div class="label">Price</div>
+          <p><span id="minPrice"><b>₫0</b></span> – <span id="maxPrice"><b>₫500,000+</b></span></p>
 
-            <div class="range-row">
-                <div class="slider" id="slider">
-                <div class="track"></div>
-                <div class="range" id="activeRange"></div>
-                <input class="min" id="min" type="range" min="0" max="500000" step="100" value="0">
-                <input class="max" id="max" type="range" min="0" max="500000" step="100" value="500000">
-                </div>
-                <button class="go-btn" id="goBtn">Go</button>
+          <div class="range-row">
+            <div class="slider" id="slider">
+              <div class="track"></div>
+              <div class="range" id="activeRange"></div>
+              <input class="min" id="min" type="range" min="0" max="500000" step="100" value="0">
+              <input class="max" id="max" type="range" min="0" max="500000" step="100" value="500000">
             </div>
+            <button class="go-btn" id="goBtn">Go</button>
+          </div>
         </div>
         <div class="mb-4">
           <h5 class="fw-bold">Categories</h5>
@@ -243,19 +257,20 @@
           <button class="btn btn-outline-primary" id="searchBtn">
             <i class="bi bi-search"></i>
           </button>
-          <div id="searchDropdown" class="list-group position-absolute w-50" style="top:100%; z-index:1000; display:none;"></div>
+          <div id="searchDropdown" class="list-group position-absolute w-50"
+            style="top:100%; z-index:1000; display:none;"></div>
         </div>
 
 
         <div class="d-flex justify-content-end align-items-center mb-3">
-            <label for="sortSelect" class="me-2 fw-bold">Sort by:</label>
-            <select id="sortSelect" class="form-select form-select-sm" style="width: 200px;">
-                <option value="">Default</option>
-                <option value="priceAsc">Price: Low → High</option>
-                <option value="priceDesc">Price: High → Low</option>
-                <option value="titleAsc">Title: A → Z</option>
-                <option value="titleDesc">Title: Z → A</option>
-            </select>
+          <label for="sortSelect" class="me-2 fw-bold">Sort by:</label>
+          <select id="sortSelect" class="form-select form-select-sm" style="width: 200px;">
+            <option value="">Default</option>
+            <option value="priceAsc">Price: Low → High</option>
+            <option value="priceDesc">Price: High → Low</option>
+            <option value="titleAsc">Title: A → Z</option>
+            <option value="titleDesc">Title: Z → A</option>
+          </select>
         </div>
 
         <div class="row g-3 book-list" id="bookList">
@@ -264,49 +279,49 @@
 
         <!-- Pagination controls -->
         <nav aria-label="Book pagination">
-            <ul class="pagination justify-content-center mt-4" id="pagination"></ul>
+          <ul class="pagination justify-content-center mt-4" id="pagination"></ul>
         </nav>
       </section>
     </div>
   </div>
 
   <!-- Footer -->
-     <div id="footer-placeholder"></div>
-     
-     <script>
-  // Load reusable footer
-  fetch("footer.html?nocache=" + new Date().getTime())
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById("footer-placeholder").innerHTML = html;
-    })
-    .catch(err => console.error("Footer load failed:", err));
-</script>
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Load reusable footer
+    fetch("footer.html?nocache=" + new Date().getTime())
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("footer-placeholder").innerHTML = html;
+      })
+      .catch(err => console.error("Footer load failed:", err));
+  </script>
 
   <script>
     fetch("navbar.html?nocache=" + new Date().getTime())
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-placeholder").innerHTML = html;
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("navbar-placeholder").innerHTML = html;
 
-            // Run session checker after navbar loads
-            const script = document.createElement("script");
-            script.src = "js/sessionCheck.js";
-            script.onload = () => updateNavbar('product_book.html');
-            document.body.appendChild(script);
+        // Run session checker after navbar loads
+        const script = document.createElement("script");
+        script.src = "js/sessionCheck.js";
+        script.onload = () => updateNavbar('product_book.html');
+        document.body.appendChild(script);
 
-            // Highlight active link
-            const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
-            const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+        // Highlight active link
+        const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+        const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
 
-            console.log(navLinks);
-            navLinks.forEach(link => {
-                const href = link.getAttribute("href");
-                if (href && href === currentPage) link.classList.add("active");
-                else link.classList.remove("active");
-            });
-        })
-        .catch(err => console.error("Navbar load failed:", err));
+        console.log(navLinks);
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href");
+          if (href && href === currentPage) link.classList.add("active");
+          else link.classList.remove("active");
+        });
+      })
+      .catch(err => console.error("Navbar load failed:", err));
 
     // === Elements ===
     const minInput = document.getElementById('min');
@@ -397,84 +412,84 @@
 
     // === Helper ===
     function fmt(n) {
-        return Number(n).toLocaleString('vi-VN');
+      return Number(n).toLocaleString('vi-VN');
     }
 
     // === Update slider UI ===
     function updateSliderUI() {
-        const MIN = Number(minInput.min);
-        const MAX = Number(maxInput.max);
-        const STEP = Number(minInput.step);
+      const MIN = Number(minInput.min);
+      const MAX = Number(maxInput.max);
+      const STEP = Number(minInput.step);
 
-        let minVal = Number(minInput.value);
-        let maxVal = Number(maxInput.value);
+      let minVal = Number(minInput.value);
+      let maxVal = Number(maxInput.value);
 
-        if (maxVal - minVal < STEP) {
-            if (document.activeElement === minInput) minVal = maxVal - STEP;
-            else maxVal = minVal + STEP;
-        }
+      if (maxVal - minVal < STEP) {
+        if (document.activeElement === minInput) minVal = maxVal - STEP;
+        else maxVal = minVal + STEP;
+      }
 
-        const percentMin = ((minVal - MIN) / (MAX - MIN)) * 100;
-        const percentMax = ((maxVal - MIN) / (MAX - MIN)) * 100;
+      const percentMin = ((minVal - MIN) / (MAX - MIN)) * 100;
+      const percentMax = ((maxVal - MIN) / (MAX - MIN)) * 100;
 
-        activeRange.style.left = percentMin + '%';
-        activeRange.style.width = (percentMax - percentMin) + '%';
+      activeRange.style.left = percentMin + '%';
+      activeRange.style.width = (percentMax - percentMin) + '%';
 
-        minLabel.innerHTML = `<b>₫${fmt(minVal)}</b>`;
-        maxLabel.innerHTML = `<b>₫${fmt(maxVal)}${maxVal >= MAX ? '+' : ''}</b>`;
+      minLabel.innerHTML = `<b>₫${fmt(minVal)}</b>`;
+      maxLabel.innerHTML = `<b>₫${fmt(maxVal)}${maxVal >= MAX ? '+' : ''}</b>`;
 
-        // Fix overlap issue
-        minInput.style.zIndex = (minVal > maxVal - (MAX - MIN) * 0.05) ? 6 : 5;
-        maxInput.style.zIndex = (minVal > maxVal - (MAX - MIN) * 0.05) ? 5 : 6;
+      // Fix overlap issue
+      minInput.style.zIndex = (minVal > maxVal - (MAX - MIN) * 0.05) ? 6 : 5;
+      maxInput.style.zIndex = (minVal > maxVal - (MAX - MIN) * 0.05) ? 5 : 6;
     }
 
     /* Return array filtered by current price & search input */
     function getFilteredBooks() {
-        const min = Number(minInput.value);
-        const max = Number(maxInput.value);
-        const keyword = (searchInput.value || '').trim().toLowerCase();
+      const min = Number(minInput.value);
+      const max = Number(maxInput.value);
+      const keyword = (searchInput.value || '').trim().toLowerCase();
 
-        // detect if max slider is at its end
-        const isMaxAtEnd = max >= Number(maxInput.max);
+      // detect if max slider is at its end
+      const isMaxAtEnd = max >= Number(maxInput.max);
 
-        return books.filter(book => {
-            const inPrice = book.price >= min && (isMaxAtEnd || book.price <= max);
-            const matchesKeyword = keyword === '' || book.title.toLowerCase().includes(keyword);
-            return inPrice && matchesKeyword;
-        });
+      return books.filter(book => {
+        const inPrice = book.price >= min && (isMaxAtEnd || book.price <= max);
+        const matchesKeyword = keyword === '' || book.title.toLowerCase().includes(keyword);
+        return inPrice && matchesKeyword;
+      });
     }
 
     /* Render page of filtered books */
-    function renderBooks(page = 1, filteredBooks=null) {
-        let filtered = filteredBooks ? filteredBooks : getFilteredBooks();
+    function renderBooks(page = 1, filteredBooks = null) {
+      let filtered = filteredBooks ? filteredBooks : getFilteredBooks();
 
-        const sortValue = sortSelect.value;
-        if (sortValue == 'priceAsc') {
-            filtered.sort((a, b) => a.price - b.price);
-        } else if (sortValue == 'priceDesc') {
-            filtered.sort((a, b) => b.price - a.price);
-        } else if (sortValue == 'titleAsc') {
-            filtered.sort((a, b) => a.title.localeCompare(b.title, 'vi'));
-        } else if (sortValue == 'titleDesc') {
-            filtered.sort((a, b) => b.title.localeCompare(a.title, 'vi'));
-        }
-        const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+      const sortValue = sortSelect.value;
+      if (sortValue == 'priceAsc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortValue == 'priceDesc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sortValue == 'titleAsc') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title, 'vi'));
+      } else if (sortValue == 'titleDesc') {
+        filtered.sort((a, b) => b.title.localeCompare(a.title, 'vi'));
+      }
+      const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
 
-        // clamp page
-        if (page < 1) page = 1;
-        if (page > totalPages) page = totalPages;
-        currentPage = page;
+      // clamp page
+      if (page < 1) page = 1;
+      if (page > totalPages) page = totalPages;
+      currentPage = page;
 
-        const start = (page - 1) * itemsPerPage;
-        const pageBooks = filtered.slice(start, start + itemsPerPage);
+      const start = (page - 1) * itemsPerPage;
+      const pageBooks = filtered.slice(start, start + itemsPerPage);
 
-        // Clear and render
-        bookList.innerHTML = '';
-        if (pageBooks.length === 0) {
-            bookList.innerHTML = `<div class="col-12 text-center text-muted py-4">Không có sách phù hợp.</div>`;
-        } else {
-            pageBooks.forEach(book => {
-            bookList.innerHTML += `
+      // Clear and render
+      bookList.innerHTML = '';
+      if (pageBooks.length === 0) {
+        bookList.innerHTML = `<div class="col-12 text-center text-muted py-4">Không có sách phù hợp.</div>`;
+      } else {
+        pageBooks.forEach(book => {
+          bookList.innerHTML += `
                 <div class="col-6 col-md-4 col-lg-3">
                 <div class="card book-card h-100">
                     <img src="${book.image_url}" class="card-img-top" alt="${book.title}" style="height:180px;object-fit:contain;">
@@ -485,46 +500,46 @@
                     </div>
                 </div>
                 </div>`;
-            });
-        }
+        });
+      }
 
-        renderPagination(filtered.length, totalPages);
+      renderPagination(filtered.length, totalPages);
     }
 
     /* Render pagination based on filteredTotal and totalPages */
     function renderPagination(filteredTotal, totalPages) {
-        pagination.innerHTML = '';
+      pagination.innerHTML = '';
 
-        // Prev
-        pagination.innerHTML += `
+      // Prev
+      pagination.innerHTML += `
             <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
             <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
             </li>`;
 
-        // Show a compact range of page numbers (avoid rendering 50 links)
-        const delta = 2; // pages to show around current
-        const pages = [];
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
-            pages.push(i);
-            } else if (pages[pages.length - 1] !== '...') {
-            pages.push('...');
-            }
+      // Show a compact range of page numbers (avoid rendering 50 links)
+      const delta = 2; // pages to show around current
+      const pages = [];
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== '...') {
+          pages.push('...');
         }
+      }
 
-        pages.forEach(p => {
-            if (p === '...') {
-            pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">…</span></li>`;
-            } else {
-            pagination.innerHTML += `
+      pages.forEach(p => {
+        if (p === '...') {
+          pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">…</span></li>`;
+        } else {
+          pagination.innerHTML += `
                 <li class="page-item ${p === currentPage ? 'active' : ''}">
                 <a class="page-link" href="#" data-page="${p}">${p}</a>
                 </li>`;
-            }
-        });
+        }
+      });
 
-        // Next
-        pagination.innerHTML += `
+      // Next
+      pagination.innerHTML += `
             <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
             <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
             </li>`;
@@ -532,11 +547,11 @@
 
     /* Click handler for pagination */
     pagination.addEventListener('click', e => {
-        const a = e.target.closest('a.page-link');
-        if (!a) return;
-        e.preventDefault();
-        const page = Number(a.dataset.page);
-        if (!isNaN(page)) renderBooks(page);
+      const a = e.target.closest('a.page-link');
+      if (!a) return;
+      e.preventDefault();
+      const page = Number(a.dataset.page);
+      if (!isNaN(page)) renderBooks(page);
     });
 
     // === Event listeners ===
@@ -544,24 +559,24 @@
     maxInput.addEventListener('input', updateSliderUI);
 
     goBtn.addEventListener('click', e => {
-        e.preventDefault();
-        currentPage = 1;
-        fetchBooks(1);
+      e.preventDefault();
+      currentPage = 1;
+      fetchBooks(1);
     });
 
     /* When user submits search form, reset to page 1 and render */
     if (searchForm) {
-    searchForm.addEventListener('submit', e => {
+      searchForm.addEventListener('submit', e => {
         e.preventDefault();
         currentPage = 1;
         fetchBooks(1);
-    });
+      });
     }
 
     /* === Event listener for sort select === */
     sortSelect.addEventListener('change', () => {
-        currentPage = 1;
-        renderBooks(1);
+      currentPage = 1;
+      renderBooks(1);
     });
 
     // === Initial setup ===
@@ -656,4 +671,5 @@
 
   </script>
 </body>
+
 </html>
