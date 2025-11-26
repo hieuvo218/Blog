@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <meta name="description" content="Login to your MyWebsite account or continue with Google or Facebook.">
   <meta name="keywords" content="login, account, bookstore, user access">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://localhost/mywebsite/login.html">
+  <link rel="icon" type="image/png" href="images/logo.png">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Login | MyWebsite">
   <meta property="og:description" content="Sign in to access your account and manage your orders.">
   <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
   <meta property="og:url" content="https://localhost/mywebsite/login.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Login | MyWebsite">
+  <meta name="twitter:description" content="Sign in to access your account and manage your orders.">
+  <meta name="twitter:image" content="https://localhost/mywebsite/images/logo.png">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
@@ -21,16 +30,19 @@
       position: relative;
       z-index: 10;
     }
+
     a.forgot-link {
       text-decoration: none;
       font-size: 0.9rem;
       color: var(--primary);
     }
+
     a.forgot-link:hover {
       text-decoration: underline;
     }
   </style>
 </head>
+
 <body class="d-flex flex-column min-vh-100">
 
   <div id="navbar-placeholder"></div>
@@ -108,13 +120,13 @@
     });
 
     // ===== GOOGLE LOGIN =====
-    window.onload = function() {
+    window.onload = function () {
       google.accounts.id.disableAutoSelect();
       google.accounts.id.cancel();
       google.accounts.id.initialize({
         client_id: "1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com",
         callback: handleGoogleLogin,
-        auto_select: false, 
+        auto_select: false,
         cancel_on_tap_outside: true
       });
       google.accounts.id.renderButton(
@@ -129,20 +141,20 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ credential: response.credential })
       })
-      .then(r => r.json())
-      .then(d => {
-        if (d.success) window.location.href = "index.html";
-        else alert("Google login failed: " + d.message);
-      });
+        .then(r => r.json())
+        .then(d => {
+          if (d.success) window.location.href = "index.html";
+          else alert("Google login failed: " + d.message);
+        });
     }
 
     // ===== FACEBOOK LOGIN =====
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
-        appId      : '1382024816770394',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v19.0'
+        appId: '1382024816770394',
+        cookie: true,
+        xfbml: true,
+        version: 'v19.0'
       });
     };
 
@@ -155,11 +167,11 @@
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(userInfo)
             })
-            .then(r => r.json())
-            .then(d => {
-              if (d.success) window.location.href = "index.html";
-              else alert("Facebook login failed: " + d.message);
-            });
+              .then(r => r.json())
+              .then(d => {
+                if (d.success) window.location.href = "index.html";
+                else alert("Facebook login failed: " + d.message);
+              });
           });
         }
       }, { scope: 'email' });
@@ -170,4 +182,5 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
 </body>
+
 </html>

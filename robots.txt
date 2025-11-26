@@ -1,0 +1,26 @@
+# robots.txt for MyWebsite
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow crawling of admin/API endpoints
+Disallow: /api/
+Disallow: /vendor/
+
+# Disallow crawling of user authentication pages
+Disallow: /login.html
+Disallow: /register.html
+Disallow: /forgot_password.html
+Disallow: /reset_password.html
+
+# Allow crawling of product pages
+Allow: /product_book.html
+Allow: /books/
+Allow: /category/
+
+# Sitemap location
+Sitemap: https://localhost/mywebsite/sitemap.xml
+
+# Crawl-delay for polite crawling (optional)
+Crawl-delay: 1

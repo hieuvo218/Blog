@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Detail</title>
   <!-- SEO Meta -->
   <title>Buy Books Online | MyWebsite</title>
-  <meta name="description" content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
+  <meta name="description"
+    content="Discover a wide range of books on MyWebsite. Shop online with ease and enjoy exclusive deals on your favorite titles.">
   <meta name="keywords" content="books, online bookstore, buy books Vietnam, book deals">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://localhost/mywebsite/book_detail.html">
+  <link rel="icon" type="image/png" href="images/logo.png">
 
   <!-- Open Graph (for Facebook / social sharing) -->
   <meta property="og:title" content="Buy Books Online | MyWebsite">
-  <meta property="og:description" content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
+  <meta property="og:description"
+    content="Explore the latest and best-selling books. Free shipping for orders over ₫300,000.">
   <meta property="og:image" content="https://localhost/mywebsite/images/logo.png">
   <meta property="og:url" content="https://localhost/mywebsite/product_book.html">
 
@@ -20,14 +25,23 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Buy Books Online | MyWebsite">
   <meta name="twitter:description" content="Shop your favorite books online at MyWebsite.">
+  <meta name="twitter:image" content="https://localhost/mywebsite/images/logo.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link ref="stylesheet" href="css/style.css">
   <style>
-    .book-detail { max-width: 900px; margin: 50px auto; }
-    .book-cover { max-width: 300px; border-radius: 10px; }
+    .book-detail {
+      max-width: 900px;
+      margin: 50px auto;
+    }
+
+    .book-cover {
+      max-width: 300px;
+      border-radius: 10px;
+    }
   </style>
 </head>
+
 <body>
   <!-- Navbar placeholder -->
   <div id="navbar-placeholder"></div>
@@ -52,43 +66,43 @@
   </a>
 
   <!-- Footer -->
-     <div id="footer-placeholder"></div>
-     
-     <script>
-      // Load reusable footer
-      fetch("footer.html?nocache=" + new Date().getTime())
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById("footer-placeholder").innerHTML = html;
-        })
-        .catch(err => console.error("Footer load failed:", err));
-    </script>
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Load reusable footer
+    fetch("footer.html?nocache=" + new Date().getTime())
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("footer-placeholder").innerHTML = html;
+      })
+      .catch(err => console.error("Footer load failed:", err));
+  </script>
 
 
   <script>
     fetch("navbar.html?nocache=" + new Date().getTime())
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-placeholder").innerHTML = html;
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("navbar-placeholder").innerHTML = html;
 
-            // Run session checker after navbar loads
-            const script = document.createElement("script");
-            script.src = "js/sessionCheck.js";
-            script.onload = () => updateNavbar('product_book.html');
-            document.body.appendChild(script);
+        // Run session checker after navbar loads
+        const script = document.createElement("script");
+        script.src = "js/sessionCheck.js";
+        script.onload = () => updateNavbar('product_book.html');
+        document.body.appendChild(script);
 
-            // Highlight active link
-            const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
-            const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
+        // Highlight active link
+        const currentPage = window.location.pathname.split("/").pop(); // e.g. product_book.html
+        const navLinks = document.querySelectorAll("#navbar-placeholder .nav-link, #navbar-placeholder .dropdown-item");
 
-            console.log(navLinks);
-            navLinks.forEach(link => {
-                const href = link.getAttribute("href");
-                if (href && href === currentPage) link.classList.add("active");
-                else link.classList.remove("active");
-            });
-        })
-        .catch(err => console.error("Navbar load failed:", err));
+        console.log(navLinks);
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href");
+          if (href && href === currentPage) link.classList.add("active");
+          else link.classList.remove("active");
+        });
+      })
+      .catch(err => console.error("Navbar load failed:", err));
 
     async function loadBookDetail() {
       const params = new URLSearchParams(window.location.search);
@@ -129,6 +143,32 @@
             </iframe>
           </div>
         `;
+
+        // Add Product Schema.org structured data
+        const schema = {
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          "name": book.title,
+          "image": book.image_url || 'https://localhost/mywebsite/images/default_book.png',
+          "description": book.description || 'No description available.',
+          "brand": {
+            "@type": "Brand",
+            "name": "MyWebsite"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": book.price,
+            "priceCurrency": "VND",
+            "availability": "https://schema.org/InStock",
+            "url": window.location.href
+          }
+        };
+
+        // Inject schema into page
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.textContent = JSON.stringify(schema);
+        document.head.appendChild(scriptTag);
       } catch (err) {
         console.error(err);
         document.getElementById('bookDetail').innerHTML = '<p>Error loading book details.</p>';
@@ -139,4 +179,5 @@
 
   </script>
 </body>
+
 </html>
