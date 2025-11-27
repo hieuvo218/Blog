@@ -16,7 +16,6 @@ define('BASE_URL', 'http://localhost/mywebsite/'); // Change when live
 define('ADMIN_EMAIL', 'hvotranminh2003@gmail.com');
 
 // Set UTF-8 charset
-$conn->set_charset("utf8mb4");
 
 // ========================
 // 📧 EMAIL CONFIG (PHPMailer)

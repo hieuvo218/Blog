@@ -49,6 +49,15 @@ try {
     $mail->Password = SMTP_PASS;     // 🟡 use Gmail app password
     $mail->SMTPSecure = SMTP_SECURE;
     $mail->Port = SMTP_PORT;
+    
+    // Fix SSL certificate verification error on Windows/XAMPP
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
     $mail->setFrom('hvotranminh2003@gmail.com', 'MyWebsite');
     $mail->addAddress($email);
