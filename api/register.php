@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 require_once 'db_connect.php';
+require_once __DIR__ . '/config.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -14,9 +15,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   exit(json_encode(["success" => false, "message" => "Invalid email"]));
 }
 // 🔒 Password validation rules
-if (strlen($new_password) < 8 || 
-    !preg_match('/[A-Z]/', $new_password) || 
-    !preg_match('/[0-9]/', $new_password)) {
+if (strlen($password) < 8 || 
+    !preg_match('/[A-Z]/', $password) || 
+    !preg_match('/[0-9]/', $password)) {
     echo json_encode([
         "success" => false, 
         "message" => "Password must be at least 8 characters, include a number and an uppercase letter."
@@ -52,6 +53,15 @@ try {
     $mail->Password = SMTP_PASS;     // 🟡 use Gmail app password
     $mail->SMTPSecure = SMTP_SECURE;
     $mail->Port = SMTP_PORT;
+    
+    // Fix SSL certificate verification error on Windows/XAMPP
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
     $mail->setFrom('hvotranminh2003@gmail.com', 'MyWebsite');
     $mail->addAddress($email);
