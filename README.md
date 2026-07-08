@@ -1,4 +1,4 @@
-# MyWebsite - Simplified Project README
+# MyWebsite
 
 ## Project Overview
 MyWebsite is a personal web development project that combines a blog-style website with product browsing features. The goal is to build a complete, user-friendly web application where visitors can explore content, search products, and use secure account features.
