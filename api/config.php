@@ -8,6 +8,29 @@
  *   require_once __DIR__ . '/config.php';
  */
 
+// Load key-value pairs from ../.env if present.
+$envPath = __DIR__ . '/../.env';
+if (is_file($envPath) && is_readable($envPath)) {
+	$envValues = parse_ini_file($envPath, false, INI_SCANNER_RAW);
+	if (is_array($envValues)) {
+		foreach ($envValues as $key => $value) {
+			if (getenv($key) === false) {
+				putenv($key . '=' . $value);
+				$_ENV[$key] = $value;
+			}
+		}
+	}
+}
+
+function env_value($key, $default = '')
+{
+	$value = getenv($key);
+	if ($value === false || $value === '') {
+		return $default;
+	}
+	return $value;
+}
+
 // ========================
 // ⚙️ SITE CONFIG
 // ========================
@@ -22,9 +45,15 @@ define('ADMIN_EMAIL', 'hvotranminh2003@gmail.com');
 // ========================
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USER', 'hvotranminh2003@gmail.com');
-define('SMTP_PASS', 'REDACTED_SMTP_PASS'); // ⚠️ Gmail App Password
+define('SMTP_PASS', env_value('SMTP_PASS')); // Store in .env
 define('SMTP_PORT', 587);
 define('SMTP_SECURE', 'tls');
+
+// ========================
+// 🔐 OAUTH CONFIG
+// ========================
+define('GOOGLE_CLIENT_ID', env_value('GOOGLE_CLIENT_ID'));
+define('GOOGLE_CLIENT_SECRET', env_value('GOOGLE_CLIENT_SECRET'));
 
 // ========================
 // 🕒 OTHER SETTINGS

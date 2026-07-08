@@ -1,0 +1,10 @@
+# Environment secrets
+.env
+api/.env
+
+# Local-only overrides
+*.local
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

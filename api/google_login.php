@@ -2,6 +2,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 session_start();
 header("Content-Type: application/json");
+require_once __DIR__ . '/config.php';
 require 'db_connect.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -12,8 +13,17 @@ if (!$token) {
   exit;
 }
 
-$client = new Google_Client(['client_id' => '1067391613199-j9maommrof6ehm54hf6i72ksb7150dau.apps.googleusercontent.com']);
-$client->setClientSecret('REDACTED_GOOGLE_CLIENT_SECRET');
+$googleClientId = GOOGLE_CLIENT_ID;
+if ($googleClientId === '') {
+  echo json_encode(["success" => false, "message" => "Google login is not configured"]);
+  exit;
+}
+
+$client = new Google_Client(['client_id' => $googleClientId]);
+$googleClientSecret = GOOGLE_CLIENT_SECRET;
+if ($googleClientSecret !== '') {
+  $client->setClientSecret($googleClientSecret);
+}
 $payload = $client->verifyIdToken($token);
 
 if ($payload) {
